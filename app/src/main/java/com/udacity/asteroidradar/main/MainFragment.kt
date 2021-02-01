@@ -2,6 +2,7 @@ package com.udacity.asteroidradar.main
 
 import android.os.Bundle
 import android.view.*
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -17,9 +18,18 @@ class MainFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
+
+        // Get a reference to the binding object and inflate the fragment views.
+        val binding: FragmentMainBinding = DataBindingUtil.inflate(
+            inflater, R.layout.fragment_main, container, false)
+
+        // get reference to application context
         val application = requireNotNull(this.activity).application
 
-        val binding = FragmentMainBinding.inflate(inflater)
+        // get instance of ViewModelFactory
+        val viewModelFactory = MainViewModelFactory(application)
+        val viewModel = ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)
+
         binding.lifecycleOwner = this
 
         binding.viewModel = viewModel
@@ -27,9 +37,9 @@ class MainFragment : Fragment() {
         val adapter = AsteroidsListAdapter()
         binding.asteroidRecycler.adapter = adapter
 
-        viewModel.asteroid.observe(viewLifecycleOwner, Observer {
+        viewModel.asteroids.observe(viewLifecycleOwner, Observer {
                 it?.let {
-                    adapter.dataSet = listOf(it)
+                    adapter.dataSet = it
                 }
         })
 

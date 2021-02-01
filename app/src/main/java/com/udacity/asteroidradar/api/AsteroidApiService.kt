@@ -1,6 +1,6 @@
 package com.udacity.asteroidradar.api
 
-import com.udacity.asteroidradar.Constants.APIKEY
+import com.udacity.asteroidradar.Constants.API_KEY
 import com.udacity.asteroidradar.Constants.BASE_URL
 import com.udacity.asteroidradar.PictureOfDay
 import retrofit2.Retrofit
@@ -19,8 +19,8 @@ interface AsteroidApiService {
     ): String
 
     @GET("planetary/apod")
-    suspend fun getApod(
-        @Query(APIKEY) api_key: String
+    suspend fun getImageOfDayFromNasa(
+        @Query(API_KEY) api_key: String
     ): PictureOfDay
 
 

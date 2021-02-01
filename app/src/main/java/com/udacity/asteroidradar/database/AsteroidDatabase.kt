@@ -32,3 +32,17 @@ abstract class AsteroidDatabase: RoomDatabase() {
         }
     }
 }
+//private lateinit var INSTANCE: AsteroidDatabase
+//
+//fun getDatabase(context: Context): AsteroidDatabase {
+//    synchronized(AsteroidDatabase::class.java) {
+//        if(!::INSTANCE.isInitialized) {
+//            INSTANCE = Room.databaseBuilder(context.applicationContext,
+//                AsteroidDatabase::class.java,
+//                "asteroids")
+//                .fallbackToDestructiveMigration()
+//                .build()
+//        }
+//    }
+//    return INSTANCE
+//}
