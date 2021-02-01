@@ -4,6 +4,11 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 
+//@BindingAdapter("imageUrl")
+//fun bindImage(imageView: ImageView, imgUrl: String?) {
+//    imageView.setImageResource(R.drawable.placeholder_picture_of_day)
+//}
+
 @BindingAdapter("statusIcon")
 fun bindAsteroidStatusImage(imageView: ImageView, isHazardous: Boolean) {
     if (isHazardous) {

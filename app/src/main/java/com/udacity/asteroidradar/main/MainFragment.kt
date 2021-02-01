@@ -6,6 +6,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.squareup.picasso.Picasso
 import com.udacity.asteroidradar.AsteroidsListAdapter
 import com.udacity.asteroidradar.R
 import com.udacity.asteroidradar.databinding.FragmentMainBinding
@@ -43,6 +44,13 @@ class MainFragment : Fragment() {
                 }
         })
 
+        viewModel.nasaImage.observe(viewLifecycleOwner, Observer {
+            it?.apply {
+                binding.activityMainImageOfTheDay.contentDescription = it.mediaType
+                Picasso.with(context)
+                    .load(it.url).into(binding.activityMainImageOfTheDay)
+            }
+        })
 
         setHasOptionsMenu(true)
 
