@@ -66,6 +66,17 @@ class MainFragment : Fragment() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.show_today_menu -> {
+                viewModel.showMenuOptionSelected(MenuOptionSelected.TODAY)
+                }
+            R.id.show_week_menu -> {
+                viewModel.showMenuOptionSelected(MenuOptionSelected.WEEK)
+            }
+            R.id.show_saved_menu -> {
+                viewModel.showMenuOptionSelected(MenuOptionSelected.SAVED)
+            }
+        }
         return true
     }
 }
