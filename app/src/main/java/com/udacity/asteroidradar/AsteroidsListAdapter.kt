@@ -1,45 +1,54 @@
 package com.udacity.asteroidradar
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.udacity.asteroidradar.databinding.ListItemBinding
 
-class AsteroidsListAdapter: RecyclerView.Adapter<AsteroidsListAdapter.ViewHolder>() {
+class AsteroidsListAdapter(private val onClickListener: OnClickListener):
+    ListAdapter<Asteroid, AsteroidsListAdapter.AsteroidViewHolder>(DiffCallback) {
 
-    var dataSet = listOf<Asteroid>()
-        set(value) {
-            field = value
-            notifyDataSetChanged()
+    // provide a reference to the custom Asteroid ViewHolder
+    class AsteroidViewHolder(private var binding: ListItemBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(asteroid: Asteroid) {
+            binding.asteroid = asteroid
+
+            // force data binding to execute immediately
+            binding.executePendingBindings()
         }
-    /**
-     * Provide a reference to the type of views that you are using
-     * (custom ViewHolder).
-     */
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val asteroidText: TextView = itemView.findViewById(R.id.asteroid_text)
     }
 
     // Create new views (invoked by the layout manager)
-    override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
-        // Create a new view, which defines the UI of the list item
-        val view = LayoutInflater.from(viewGroup.context)
-                .inflate(R.layout.list_item_asteriod, viewGroup, false)
-
-        return ViewHolder(view)
+    override fun onCreateViewHolder(parent: ViewGroup,
+                                    viewType: Int): AsteroidViewHolder {
+        return AsteroidViewHolder(ListItemBinding.inflate(LayoutInflater.from(parent.context), parent, false))
     }
 
     // Replace the contents of a view (invoked by the layout manager)
-    override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
-        val item = dataSet[position]
-
-        // Get element from your dataset at this position and replace the
-        // contents of the view with that element
-        viewHolder.asteroidText.text = item.codename
+    override fun onBindViewHolder(viewHolder: AsteroidViewHolder, position: Int) {
+        val asteroid = getItem(position)
+        viewHolder.itemView.setOnClickListener {
+            onClickListener.onClick(asteroid)
+        }
+        viewHolder.bind(asteroid)
     }
 
-    // Return the size of your dataset (invoked by the layout manager)
-    override fun getItemCount() = dataSet.size
+
+    companion object DiffCallback : DiffUtil.ItemCallback<Asteroid>() {
+        override fun areItemsTheSame(oldItem: Asteroid, newItem: Asteroid): Boolean {
+            return oldItem === newItem
+        }
+
+        override fun areContentsTheSame(oldItem: Asteroid, newItem: Asteroid): Boolean {
+            return oldItem.id == newItem.id
+        }
+    }
+
+    class OnClickListener(val clickListener: (asteroid: Asteroid) -> Unit) {
+        fun onClick(asteroid: Asteroid) = clickListener(asteroid)
+    }
 
 }
