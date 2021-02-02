@@ -1,13 +1,28 @@
 package com.udacity.asteroidradar
 
+import android.view.View
 import android.widget.ImageView
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
+import com.udacity.asteroidradar.main.NasaApiStatus
 
-//@BindingAdapter("imageUrl")
-//fun bindImage(imageView: ImageView, imgUrl: String?) {
-//    imageView.setImageResource(R.drawable.placeholder_picture_of_day)
-//}
+@BindingAdapter("nasaApiStatusError")
+fun bindApiStatusError(statusImageView: ImageView, status: NasaApiStatus?) {
+    if (status == NasaApiStatus.ERROR) statusImageView.setImageResource(R.drawable.ic_connection_error)
+}
+
+@BindingAdapter("nasaApiStatus")
+fun bindApiStatus(progressBarView: ProgressBar, status: NasaApiStatus?) {
+    when (status) {
+        NasaApiStatus.LOADING -> {
+            progressBarView.visibility = View.VISIBLE
+        }
+        NasaApiStatus.DONE -> {
+            progressBarView.visibility = View.GONE
+        }
+    }
+}
 
 @BindingAdapter("statusIcon")
 fun bindAsteroidStatusImage(imageView: ImageView, isHazardous: Boolean) {
