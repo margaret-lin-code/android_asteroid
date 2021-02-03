@@ -36,6 +36,7 @@
             android:layout_marginStart="32dp"
             android:layout_marginBottom="@dimen/spacing_normal"
             android:text="@{asteroid.closeApproachDate}"
+            android:contentDescription="@string/close_approach_data_title"
             android:textAppearance="@style/CustomHeadline6"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"

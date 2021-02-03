@@ -28,6 +28,7 @@
                 android:layout_height="match_parent"
                 android:adjustViewBounds="true"
                 android:scaleType="centerCrop"
+                android:contentDescription="@string/nasa_picture_of_day_content_description_format"
                 app:srcCompat="@drawable/placeholder_picture_of_day"
                 app:nasaApiStatusError="@{viewModel.status}"/>
 
@@ -41,6 +42,7 @@
                 android:textSize="20sp"
                 android:layout_gravity="bottom"
                 android:background="#55010613"
+                android:contentDescription="@string/image_of_the_day"
                 android:text="@string/image_of_the_day" />
         </FrameLayout>
 
