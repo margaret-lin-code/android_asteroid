@@ -10,7 +10,7 @@ import kotlinx.coroutines.launch
 import java.io.IOException
 
 enum class NasaApiStatus { LOADING, ERROR, DONE }
-enum class MediaType(val value: String) { IMAGE("image") }
+enum class MediaType(val value: String) { IMAGE("image"), VIDEO("video")  }
 enum class MenuOptionSelected { TODAY, WEEK, SAVED }
 
 class MainViewModel(application: Application) : AndroidViewModel(application) {
